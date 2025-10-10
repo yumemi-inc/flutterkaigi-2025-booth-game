@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shake/shake.dart';
+import 'package:flutterkaigi_2025_booth_game/result_view.dart';
 
 class GameView extends StatefulWidget {
   const GameView({super.key});
@@ -133,10 +134,14 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
       _isGameFinished = true;
     });
 
-    // TODO: 結果画面への遷移
-    Future.delayed(const Duration(seconds: 2), () {
+    // 結果画面への遷移（即座に遷移）
+    Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) {
-        Navigator.of(context).pop();
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => ResultView(shakeCount: _shakeCount),
+          ),
+        );
       }
     });
   }
@@ -287,35 +292,6 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF0097A7),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                // ゲーム終了表示
-                if (_isGameFinished)
-                  Column(
-                    children: [
-                      const Icon(
-                        Icons.check_circle,
-                        size: 100,
-                        color: Color(0xFF00BCD4),
-                      ),
-                      const SizedBox(height: 20),
-                      const Text(
-                        'ゲーム終了！',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF00BCD4),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'シェイク回数: $_shakeCount回',
-                        style: const TextStyle(
-                          fontSize: 24,
                           color: Color(0xFF0097A7),
                         ),
                       ),
