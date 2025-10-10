@@ -8,7 +8,12 @@ plugins {
 android {
     namespace = "com.example.flutterkaigi_2025_booth_game"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
+    
+    // AGP 8.0+ で必要な設定
+    buildFeatures {
+        buildConfig = true
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

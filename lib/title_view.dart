@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterkaigi_2025_booth_game/game_view.dart';
 
 class TitleView extends StatefulWidget {
   const TitleView({super.key});
@@ -118,11 +119,9 @@ class _TitleViewState extends State<TitleView> with TickerProviderStateMixin {
                       scale: _scaleAnimation.value,
                       child: GestureDetector(
                         onTap: () {
-                          // TODO: ゲーム画面への遷移
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('ゲームを開始します！'),
-                              backgroundColor: Color(0xFF00BCD4),
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const GameView(),
                             ),
                           );
                         },
