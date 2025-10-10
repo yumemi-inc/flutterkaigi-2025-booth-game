@@ -90,6 +90,7 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
 
     // シェイク検知を開始
     _shakeDetector = ShakeDetector.autoStart(
+      shakeThresholdGravity: 1,
       onPhoneShake: (ShakeEvent event) {
         if (_isGameActive && !_isGameFinished) {
           setState(() {
