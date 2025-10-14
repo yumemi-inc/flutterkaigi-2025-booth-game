@@ -14,7 +14,6 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
   late AnimationController _timerController;
   late AnimationController _shakeController;
   late Animation<double> _countdownAnimation;
-  late Animation<double> _shakeAnimation;
   late ShakeDetector _shakeDetector;
 
   int _shakeCount = 0;
@@ -40,16 +39,12 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
     );
 
     _shakeController = AnimationController(
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 100), // アニメーション時間を短縮
       vsync: this,
     );
 
     _countdownAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _countdownController, curve: Curves.elasticOut),
-    );
-
-    _shakeAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(
-      CurvedAnimation(parent: _shakeController, curve: Curves.elasticOut),
     );
 
     _startCountdown();
@@ -90,16 +85,17 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
 
     // シェイク検知を開始
     _shakeDetector = ShakeDetector.autoStart(
-      shakeThresholdGravity: 1,
+      shakeThresholdGravity: 1.1,
+      shakeSlopTimeMS: 100,
       onPhoneShake: (ShakeEvent event) {
         if (_isGameActive && !_isGameFinished) {
-          setState(() {
-            _shakeCount++;
-          });
-
-          // シェイクアニメーション
-          _shakeController.forward().then((_) {
-            _shakeController.reverse();
+          _shakeCount++;
+          setState(() {});
+          Future.microtask(() {
+            _shakeController.reset();
+            _shakeController.forward().then((_) {
+              _shakeController.reverse();
+            });
           });
         }
       },
@@ -229,12 +225,12 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
 
                       const SizedBox(height: 40),
 
-                      // シェイクカウンター
+                      // シェイクカウンター（アニメーション付き）
                       AnimatedBuilder(
-                        animation: _shakeAnimation,
+                        animation: _shakeController,
                         builder: (context, child) {
                           return Transform.scale(
-                            scale: _shakeAnimation.value,
+                            scale: 1.0 + (_shakeController.value * 0.2),
                             child: Container(
                               width: 250,
                               height: 250,
