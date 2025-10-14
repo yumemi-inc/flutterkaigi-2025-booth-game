@@ -145,156 +145,161 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.white, Color(0xFFE8F4FD), Color(0xFFB8E6FF)],
-            stops: [0.0, 0.7, 1.0],
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.white, Color(0xFFE8F4FD), Color(0xFFB8E6FF)],
+              stops: [0.0, 0.7, 1.0],
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // カウントダウン表示
-                if (_isCountdownActive)
-                  AnimatedBuilder(
-                    animation: _countdownAnimation,
-                    builder: (context, child) {
-                      return Transform.scale(
-                        scale: _countdownAnimation.value,
-                        child: Container(
-                          width: 200,
-                          height: 200,
+          child: SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // カウントダウン表示
+                  if (_isCountdownActive)
+                    AnimatedBuilder(
+                      animation: _countdownAnimation,
+                      builder: (context, child) {
+                        return Transform.scale(
+                          scale: _countdownAnimation.value,
+                          child: Container(
+                            width: 200,
+                            height: 200,
+                            decoration: BoxDecoration(
+                              color: const Color(
+                                0xFF00BCD4,
+                              ).withValues(alpha: 0.2),
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: const Color(0xFF00BCD4),
+                                width: 4,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                '$_countdown',
+                                style: const TextStyle(
+                                  fontSize: 80,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF00BCD4),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+
+                  // ゲーム中表示
+                  if (_isGameActive && !_isCountdownActive)
+                    Column(
+                      children: [
+                        // 残り時間
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 15,
+                          ),
                           decoration: BoxDecoration(
                             color: const Color(
                               0xFF00BCD4,
                             ).withValues(alpha: 0.2),
-                            shape: BoxShape.circle,
+                            borderRadius: BorderRadius.circular(25),
                             border: Border.all(
                               color: const Color(0xFF00BCD4),
-                              width: 4,
+                              width: 2,
                             ),
                           ),
-                          child: Center(
-                            child: Text(
-                              '$_countdown',
-                              style: const TextStyle(
-                                fontSize: 80,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF00BCD4),
-                              ),
+                          child: Text(
+                            '残り時間: ${_remainingTime}秒',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF00BCD4),
                             ),
                           ),
                         ),
-                      );
-                    },
-                  ),
 
-                // ゲーム中表示
-                if (_isGameActive && !_isCountdownActive)
-                  Column(
-                    children: [
-                      // 残り時間
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 30,
-                          vertical: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF00BCD4).withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(25),
-                          border: Border.all(
-                            color: const Color(0xFF00BCD4),
-                            width: 2,
-                          ),
-                        ),
-                        child: Text(
-                          '残り時間: ${_remainingTime}秒',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF00BCD4),
-                          ),
-                        ),
-                      ),
+                        const SizedBox(height: 40),
 
-                      const SizedBox(height: 40),
-
-                      // シェイクカウンター（アニメーション付き）
-                      AnimatedBuilder(
-                        animation: _shakeController,
-                        builder: (context, child) {
-                          return Transform.scale(
-                            scale: 1.0 + (_shakeController.value * 0.2),
-                            child: Container(
-                              width: 250,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFF00BCD4),
-                                    Color(0xFF0097A7),
-                                  ],
-                                ),
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(
-                                      0xFF00BCD4,
-                                    ).withValues(alpha: 0.3),
-                                    blurRadius: 20,
-                                    offset: const Offset(0, 10),
+                        // シェイクカウンター（アニメーション付き）
+                        AnimatedBuilder(
+                          animation: _shakeController,
+                          builder: (context, child) {
+                            return Transform.scale(
+                              scale: 1.0 + (_shakeController.value * 0.2),
+                              child: Container(
+                                width: 250,
+                                height: 250,
+                                decoration: BoxDecoration(
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      Color(0xFF00BCD4),
+                                      Color(0xFF0097A7),
+                                    ],
                                   ),
-                                ],
-                              ),
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'シェイク回数',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      '$_shakeCount',
-                                      style: const TextStyle(
-                                        fontSize: 60,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(
+                                        0xFF00BCD4,
+                                      ).withValues(alpha: 0.3),
+                                      blurRadius: 20,
+                                      offset: const Offset(0, 10),
                                     ),
                                   ],
                                 ),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'シェイク回数',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        '$_shakeCount',
+                                        style: const TextStyle(
+                                          fontSize: 60,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-
-                      const SizedBox(height: 40),
-
-                      // 励ましメッセージ
-                      const Text(
-                        '📱 全力でシェイクしよう！ 📱',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF0097A7),
+                            );
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-              ],
+
+                        const SizedBox(height: 40),
+
+                        // 励ましメッセージ
+                        const Text(
+                          '📱 全力でシェイクしよう！ 📱',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF0097A7),
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
             ),
           ),
         ),
