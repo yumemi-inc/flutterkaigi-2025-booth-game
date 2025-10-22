@@ -218,7 +218,7 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
                             ),
                           ),
                           child: Text(
-                            '残り時間: ${_remainingTime}秒',
+                            '残り時間: $_remainingTime秒',
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
