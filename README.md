@@ -1,122 +1,16 @@
-# FlutterKaigi 2025 ブースゲーム 🎮
+# flutterkaigi_2025_booth_game
 
-FlutterKaigi 2025のブースで使用するシェイクゲームアプリです。参加者は10秒間スマートフォンをシェイクして、その回数に応じてガチャガチャ券を獲得できます。
+A new Flutter project.
 
-## 📱 アプリ概要
+## Getting Started
 
-このアプリは、FlutterKaigi 2025のブース体験を向上させるためのインタラクティブなゲームです。参加者はスマートフォンをシェイクすることで、楽しい体験とガチャガチャ券を獲得できます。
+This project is a starting point for a Flutter application.
 
-### 🎯 主な機能
+A few resources to get you started if this is your first Flutter project:
 
-- **シェイクゲーム**: 10秒間の制限時間内でスマートフォンをシェイク
-- **リアルタイムカウンター**: シェイク回数をリアルタイムで表示
-- **アニメーション効果**: 美しいUIアニメーションとシェイク時の視覚効果
-- **結果表示**: シェイク回数に応じた結果と花びらエフェクト
-- **ガチャ券獲得**: 10回以上のシェイクでガチャガチャ券を獲得
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-### 🎮 ゲームフロー
-
-1. **タイトル画面**: ゲームの説明とスタートボタン
-2. **カウントダウン**: 5秒間のカウントダウン
-3. **ゲーム画面**: 10秒間のシェイクゲーム
-4. **結果画面**: スコア表示とガチャ券獲得メッセージ
-
-## 🛠️ 技術仕様
-
-### 使用技術
-
-- **Flutter**: クロスプラットフォーム開発フレームワーク
-- **Auto Route**: 画面遷移管理
-- **Shake**: デバイスのシェイク検知
-- **Confetti**: 花びらエフェクト
-- **Material Design**: モダンなUIデザイン
-
-### フォルダ構成
-
-```text
-lib/
-├── main.dart              # アプリのエントリーポイント
-├── title_view.dart        # タイトル画面
-├── game_view.dart         # ゲーム画面
-├── result_view.dart       # 結果画面
-└── router/
-    ├── app_router.dart    # ルーティング設定
-    └── app_router.gr.dart # 自動生成されたルート
-```
-
-### 主要な画面
-
-#### タイトル画面 (`TitleView`)
-
-- ゲームの説明とルール表示
-- アニメーション付きのスタートボタン
-
-#### ゲーム画面 (`GameView`)
-
-- 5秒間のカウントダウン
-- 10秒間のシェイクゲーム
-- リアルタイムシェイクカウンター
-- 残り時間表示
-
-#### 結果画面 (`ResultView`)
-
-- シェイク回数の表示
-- 結果に応じたメッセージと色
-- 花びらエフェクト
-- ガチャ券獲得メッセージ
-
-## 🚀 セットアップ
-
-### 前提条件
-
-- Flutter SDK 3.7.2以上
-- Dart SDK
-- Android Studio / VS Code
-
-### インストール手順
-
-1 リポジトリをクローン
-
-```bash
-git clone https://github.com/yumemi-inc/flutterkaigi-2025-booth-game.git
-```
-
-2 依存関係をインストール
-
-```bash
-flutter pub get
-```
-
-3 ルート生成（初回のみ）
-
-```bash
-flutter packages pub run build_runner build
-```
-
-4 アプリを実行
-
-```bash
-flutter run
-```
-
-## 📱 対応プラットフォーム
-
-- **Android**: API 21以上
-- **iOS**: iOS 11.0以上
-- **縦画面固定**: ゲーム体験を最適化
-
-## 🎨 デザイン特徴
-
-- **カラーパレット**: 青系グラデーション（#00BCD4, #0097A7）
-- **アニメーション**: スケール、ズーム、弾性アニメーション
-- **レスポンシブ**: 様々な画面サイズに対応
-- **アクセシビリティ**: 視覚的なフィードバック
-
-## 🎯 ゲームルール
-
-1. **制限時間**: 10秒間
-2. **目標**: できるだけ多くシェイクする
-3. **クリア条件**: 10回以上のシェイクでガチャ券獲得
-4. **ランキング**: トップ10の記録が表示される
-
-**FlutterKaigi 2025** でお会いしましょう！🎉
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
