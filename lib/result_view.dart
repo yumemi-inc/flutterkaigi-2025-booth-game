@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutterkaigi_2025_booth_game/router/app_router.dart';
 
+@RoutePage(name: 'ResultRoute')
 class ResultView extends StatefulWidget {
   final int shakeCount;
 
@@ -316,9 +319,7 @@ class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
                           child: InkWell(
                             borderRadius: BorderRadius.circular(30),
                             onTap: () {
-                              Navigator.of(
-                                context,
-                              ).popUntil((route) => route.isFirst);
+                              context.router.replaceAll([const TitleRoute()]);
                             },
                             child: const Center(
                               child: Row(

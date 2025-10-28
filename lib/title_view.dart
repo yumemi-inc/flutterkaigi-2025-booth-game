@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterkaigi_2025_booth_game/game_view.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:flutterkaigi_2025_booth_game/router/app_router.dart';
 
+@RoutePage(name: 'TitleRoute')
 class TitleView extends StatefulWidget {
   const TitleView({super.key});
 
@@ -119,11 +121,7 @@ class _TitleViewState extends State<TitleView> with TickerProviderStateMixin {
                       scale: _scaleAnimation.value,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const GameView(),
-                            ),
-                          );
+                          context.router.push(const GameRoute());
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
