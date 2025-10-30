@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -9,48 +10,20 @@
 
 part of 'app_router.dart';
 
-abstract class _$AppRouter extends RootStackRouter {
-  _$AppRouter();
-
-  @override
-  final Map<String, PageFactory> pagesMap = {
-    GameRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const GameView(),
-      );
-    },
-    ResultRoute.name: (routeData) {
-      final args = routeData.argsAs<ResultRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: ResultView(
-          key: args.key,
-          shakeCount: args.shakeCount,
-        ),
-      );
-    },
-    TitleRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const TitleView(),
-      );
-    },
-  };
-}
-
 /// generated route for
 /// [GameView]
 class GameRoute extends PageRouteInfo<void> {
   const GameRoute({List<PageRouteInfo>? children})
-      : super(
-          GameRoute.name,
-          initialChildren: children,
-        );
+    : super(GameRoute.name, initialChildren: children);
 
   static const String name = 'GameRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const GameView();
+    },
+  );
 }
 
 /// generated route for
@@ -61,24 +34,24 @@ class ResultRoute extends PageRouteInfo<ResultRouteArgs> {
     required int shakeCount,
     List<PageRouteInfo>? children,
   }) : super(
-          ResultRoute.name,
-          args: ResultRouteArgs(
-            key: key,
-            shakeCount: shakeCount,
-          ),
-          initialChildren: children,
-        );
+         ResultRoute.name,
+         args: ResultRouteArgs(key: key, shakeCount: shakeCount),
+         initialChildren: children,
+       );
 
   static const String name = 'ResultRoute';
 
-  static const PageInfo<ResultRouteArgs> page = PageInfo<ResultRouteArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ResultRouteArgs>();
+      return ResultView(key: args.key, shakeCount: args.shakeCount);
+    },
+  );
 }
 
 class ResultRouteArgs {
-  const ResultRouteArgs({
-    this.key,
-    required this.shakeCount,
-  });
+  const ResultRouteArgs({this.key, required this.shakeCount});
 
   final Key? key;
 
@@ -88,18 +61,30 @@ class ResultRouteArgs {
   String toString() {
     return 'ResultRouteArgs{key: $key, shakeCount: $shakeCount}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! ResultRouteArgs) return false;
+    return key == other.key && shakeCount == other.shakeCount;
+  }
+
+  @override
+  int get hashCode => key.hashCode ^ shakeCount.hashCode;
 }
 
 /// generated route for
 /// [TitleView]
 class TitleRoute extends PageRouteInfo<void> {
   const TitleRoute({List<PageRouteInfo>? children})
-      : super(
-          TitleRoute.name,
-          initialChildren: children,
-        );
+    : super(TitleRoute.name, initialChildren: children);
 
   static const String name = 'TitleRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TitleView();
+    },
+  );
 }
