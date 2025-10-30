@@ -1,11 +1,11 @@
 name: flutterkaigi_2025_booth_game
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.7.2
+  sdk: ^3.9.2
 
 dependencies:
   flutter:
