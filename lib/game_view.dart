@@ -5,7 +5,9 @@ import 'package:flutterkaigi_2025_booth_game/router/app_router.dart';
 
 @RoutePage(name: 'GameRoute')
 class GameView extends StatefulWidget {
-  const GameView({super.key});
+  final int requiredShakeCount;
+
+  const GameView({super.key, this.requiredShakeCount = 40});
 
   @override
   State<GameView> createState() => _GameViewState();
@@ -136,7 +138,12 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
     // 結果画面への遷移（即座に遷移）
     Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) {
-        context.router.replaceAll([ResultRoute(shakeCount: _shakeCount)]);
+        context.router.replaceAll([
+          ResultRoute(
+            shakeCount: _shakeCount,
+            requiredShakeCount: widget.requiredShakeCount,
+          ),
+        ]);
       }
     });
   }
