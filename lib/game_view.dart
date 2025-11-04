@@ -200,29 +200,40 @@ class _GameViewState extends State<GameView> with TickerProviderStateMixin {
                     Column(
                       children: [
                         // 残り時間
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 30,
-                            vertical: 15,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(
-                              0xFF00BCD4,
-                            ).withValues(alpha: 0.2),
-                            borderRadius: BorderRadius.circular(25),
-                            border: Border.all(
-                              color: const Color(0xFF00BCD4),
-                              width: 2,
-                            ),
-                          ),
-                          child: Text(
-                            '残り時間: $_remainingTime秒',
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF00BCD4),
-                            ),
-                          ),
+                        Builder(
+                          builder: (context) {
+                            Color timeColor;
+                            if (_remainingTime <= 3) {
+                              // 3秒以下は赤色
+                              timeColor = Colors.red;
+                            } else if (_remainingTime <= 5) {
+                              // 5秒以下は黄色
+                              timeColor = Colors.orange;
+                            } else {
+                              // それ以上は青色
+                              timeColor = const Color(0xFF00BCD4);
+                            }
+
+                            return Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 30,
+                                vertical: 15,
+                              ),
+                              decoration: BoxDecoration(
+                                color: timeColor.withValues(alpha: 0.2),
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(color: timeColor, width: 2),
+                              ),
+                              child: Text(
+                                '残り時間: $_remainingTime秒',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: timeColor,
+                                ),
+                              ),
+                            );
+                          },
                         ),
 
                         const SizedBox(height: 40),
