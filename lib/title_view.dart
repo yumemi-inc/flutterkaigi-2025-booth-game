@@ -77,9 +77,7 @@ class _TitleViewState extends State<TitleView> with TickerProviderStateMixin {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(
-                          0xFF00BCD4,
-                        ).withValues(alpha: 0.3),
+                        color: const Color(0xFF00BCD4).withValues(alpha: 0.3),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),
@@ -107,7 +105,10 @@ class _TitleViewState extends State<TitleView> with TickerProviderStateMixin {
 
                 // スタートボタン（ズームアニメーション付き）
                 AnimatedBuilder(
-                  animation: Listenable.merge([_scaleAnimation, _zoomAnimation]),
+                  animation: Listenable.merge([
+                    _scaleAnimation,
+                    _zoomAnimation,
+                  ]),
                   builder: (context, child) {
                     return Transform.scale(
                       scale: _scaleAnimation.value * _zoomAnimation.value,
@@ -189,7 +190,7 @@ class _TitleViewState extends State<TitleView> with TickerProviderStateMixin {
                       ),
                       SizedBox(height: 15),
                       Text(
-                        'ゲームに参加すると、\nガチャガチャの券がもらえるぞ！',
+                        '決められた回数を超えると、\nガチャガチャの券がもらえるぞ！',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
