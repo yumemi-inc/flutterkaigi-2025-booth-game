@@ -189,7 +189,7 @@ class _TitleViewState extends State<TitleView> with TickerProviderStateMixin {
                       ),
                       SizedBox(height: 15),
                       Text(
-                        '10秒間の間にシェイクをしてクリアすると、\nガチャガチャの券がもらえるぞ！',
+                        'ゲームに参加すると、\nガチャガチャの券がもらえるぞ！',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 16,
