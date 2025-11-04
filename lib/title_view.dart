@@ -105,12 +105,12 @@ class _TitleViewState extends State<TitleView> with TickerProviderStateMixin {
 
                 const SizedBox(height: 100),
 
-                // スタートボタン
+                // スタートボタン（ズームアニメーション付き）
                 AnimatedBuilder(
-                  animation: _scaleAnimation,
+                  animation: Listenable.merge([_scaleAnimation, _zoomAnimation]),
                   builder: (context, child) {
                     return Transform.scale(
-                      scale: _scaleAnimation.value,
+                      scale: _scaleAnimation.value * _zoomAnimation.value,
                       child: GestureDetector(
                         onTap: () {
                           context.router.push(const GameRoute());
