@@ -1,0 +1,56 @@
+name: Build Flutter App (Android)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Set up Java
+        uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5.0.0
+        with:
+          distribution: "temurin"
+          java-version: "11"
+          cache: "gradle"
+
+      - name: Setup Flutter
+        uses: kuhnroyal/flutter-fvm-config-action/setup@0b792d004e2dfeda282a7af5c0609703658a9f8b # v3.1
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Run build_runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+      - name: Restore keystore
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android/app/release-keystore.jks
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+
+      - name: Write key.properties
+        run: |
+          cat > android/key.properties << 'EOF'
+          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          storeFile=app/release-keystore.jks
+          EOF
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        with:
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
