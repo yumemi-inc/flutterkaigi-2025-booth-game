@@ -282,7 +282,7 @@ class _TitleViewState extends State<TitleView> with TickerProviderStateMixin {
                           ),
                           SizedBox(height: 10),
                           Text(
-                            'トップ10には名前が掲載されます。\n頑張ってシェイクしよう！',
+                            '頑張ってシェイクしよう！',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 16,
