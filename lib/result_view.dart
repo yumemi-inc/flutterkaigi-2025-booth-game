@@ -6,8 +6,13 @@ import 'package:flutterkaigi_2025_booth_game/router/app_router.dart';
 @RoutePage(name: 'ResultRoute')
 class ResultView extends StatefulWidget {
   final int shakeCount;
+  final int requiredShakeCount;
 
-  const ResultView({super.key, required this.shakeCount});
+  const ResultView({
+    super.key,
+    required this.shakeCount,
+    this.requiredShakeCount = 40,
+  });
 
   @override
   State<ResultView> createState() => _ResultViewState();
@@ -349,30 +354,37 @@ class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
                       const SizedBox(height: 20),
 
                       // ガチャ券メッセージ
-                      if (widget.shakeCount >= 10)
-                        Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 20),
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: const Color(
-                              0xFFFFD700,
-                            ).withValues(alpha: 0.2),
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: const Color(0xFFFFD700),
-                              width: 2,
-                            ),
-                          ),
-                          child: const Text(
-                            '🎁 ガチャガチャ券を獲得しました！',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFFB8860B),
-                            ),
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: widget.shakeCount >= widget.requiredShakeCount
+                              ? const Color(0xFFFFD700).withValues(alpha: 0.2)
+                              : Colors.grey.withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color:
+                                widget.shakeCount >= widget.requiredShakeCount
+                                ? const Color(0xFFFFD700)
+                                : Colors.grey,
+                            width: 2,
                           ),
                         ),
+                        child: Text(
+                          widget.shakeCount >= widget.requiredShakeCount
+                              ? '🎁 ガチャガチャ券を獲得しました！'
+                              : '😢 ガチャガチャ券ゲットならず...\n目標回数まであと${widget.requiredShakeCount - widget.shakeCount}回',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                widget.shakeCount >= widget.requiredShakeCount
+                                ? const Color(0xFFB8860B)
+                                : Colors.grey[700],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
